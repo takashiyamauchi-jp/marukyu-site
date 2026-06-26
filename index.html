@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Top | 新江戸染 丸久商店</title>
+  <meta name="description" content="東京・日本橋の注染テキスタイルメーカー。">
+  <link rel="icon" href="images/logo_mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-loading home-page">
+
+<div id="loader" class="loader" aria-label="Loading">
+  <div class="loader-inner">
+    <div class="loader-mark-stage">
+      <svg class="loader-circle" viewBox="0 0 120 120" aria-hidden="true">
+        <circle id="loaderCircle" cx="60" cy="60" r="50"></circle>
+      </svg>
+      <img id="loaderMark" class="loader-mark" src="images/logo_mark.png" alt="">
+    </div>
+    <img id="loaderShinedozome" class="loader-brush loader-shinedozome" src="images/brush_shinedozome.png" alt="新江戸染">
+    <img id="loaderMarukyu"     class="loader-brush loader-marukyu"     src="images/brush_marukyu.png"    alt="丸久商店">
+    <div id="loaderYear" class="loader-year">1899</div>
+  </div>
+</div>
+
+<header class="site-header">
+<div class="brand-group">
+  <a class="brand" href="index.html" aria-label="新江戸染 丸久商店">
+    <img class="brand-mark" src="images/logo_mark.png" alt="丸紋">
+  </a>
+  <button class="lang-switch" id="langSwitch" aria-label="言語切替">
+    <span class="lang-current">JP</span>
+    <span class="lang-switch-sep">/</span>
+    <span class="lang-other">EN</span>
+  </button>
+</div>
+  <nav class="nav" aria-label="Main navigation">
+    <a href="about.html">About</a>
+    <a href="works.html">Works</a>
+    <a href="order.html">Order</a>
+    <a href="recruit.html">Recruit</a>
+    <a href="contact.html">Contact</a>   
+  </nav>
+</header>
+
+<a class="store-float" href="https://shinedozome.stores.jp" target="_blank" rel="noopener" aria-label="Online Store"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
+<a class="instagram-float" href="https://www.instagram.com/shinedozome/" target="_blank" rel="noopener" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+<div class="brand-footer">
+  <p>SHINEDOZOME<br>MARUKYU SHOTEN</p>
+</div>
+
+<main class="home">
+  <section class="hero-slider" aria-label="Top visuals">
+
+    <!--
+      ── HERO MEDIA ──────────────────────────────────────────
+      現在は画像スライダー。動画に差し替える場合は以下をコメントアウトし、
+      下の <video> ブロックを有効にしてください。
+
+      動画差し替え手順：
+      1. video_top_hero.mp4（圧縮済み・1080p推奨）を images/ に配置
+      2. 下の hero-slide ブロックをコメントアウト
+      3. <video> ブロックのコメントを解除
+
+      <div class="hero-media hero-media--video">
+        <video class="hero-video" autoplay muted loop playsinline>
+          <source src="images/video_top_hero.mp4" type="video/mp4">
+        </video>
+      </div>
+      ────────────────────────────────────────────────────── -->
+
+    <!-- 画像スライダー（仮）→ 将来は上記 video に差し替え -->
+    <div class="hero-slide hero-media"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80&fit=crop" alt="image_top_hero_01.jpg"></div>
+    <div class="hero-slide hero-media"><img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1600&q=80&fit=crop" alt="image_top_hero_02.jpg"></div>
+    <div class="hero-slide hero-media"><img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80&fit=crop" alt="image_top_hero_03.jpg"></div>
+    <div class="hero-slide hero-media"><img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1600&q=80&fit=crop" alt="image_top_hero_04.jpg"></div>
+    <div class="hero-slide hero-media"><img src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=1600&q=80&fit=crop" alt="image_top_hero_05.jpg"></div>
+
+    <div class="slide-dots" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </section>
+</main>
+
+
+<script src="script.js"></script>
+</body>
+</html>

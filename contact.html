@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | 新江戸染 丸久商店</title>
+  <link rel="icon" href="images/logo_mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="no-hero">
+<header class="site-header">
+  <div class="brand-group">
+    <a class="brand" href="index.html" aria-label="新江戸染 丸久商店"><img class="brand-mark" src="images/logo_mark.png" alt="丸紋"></a>
+    <button class="lang-switch" id="langSwitch" aria-label="言語切替"><span class="lang-current">JP</span><span class="lang-switch-sep">/</span><span class="lang-other">EN</span></button>
+  </div>
+  <nav class="nav">
+    <a href="about.html">About</a><a href="works.html">Works</a><a href="order.html">Order</a><a href="recruit.html">Recruit</a><a href="contact.html">Contact</a>
+  </nav>
+</header>
+<a class="store-float" href="https://shinedozome.stores.jp" target="_blank" rel="noopener" aria-label="Online Store"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
+<a class="instagram-float" href="https://www.instagram.com/shinedozome/" target="_blank" rel="noopener" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+<div class="brand-footer">
+  <p>SHINEDOZOME<br>MARUKYU SHOTEN</p>
+</div>
+
+<main class="page">
+  <section class="page-hero">
+    <p class="page-label">Contact</p>
+    <h1 class="ja">お話を伺います。</h1>
+    <h1 class="en">Get in touch.</h1>
+  </section>
+
+  <section class="contact-section">
+    <p class="contact-intro ja">OEM、オリジナル製作、商品についてのご相談など、<br>お気軽にお問い合わせください。<br>通常2〜3営業日以内にご返信いたします。</p>
+    <p class="contact-intro en">For OEM, custom production, and product inquiries,<br>please feel free to reach out.<br>We will reply within 2–3 business days.</p>
+
+    <form class="contact-form" id="contactForm" action="https://formsubmit.co/contact@shinedozome.com" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="【丸久商店】お問い合わせ">
+      <input type="hidden" name="_next" value="thanks.html">
+      <input type="hidden" name="_captcha" value="false">
+
+      <div class="form-field">
+        <label class="form-label" for="name">
+          <span class="ja">お名前</span><span class="en">Name</span>
+          <span class="form-badge required-badge ja">必須</span>
+          <span class="form-badge required-badge en">Required</span>
+        </label>
+        <input class="form-input" type="text" id="name" name="name" required autocomplete="name">
+      </div>
+
+      <div class="form-field ja">
+        <label class="form-label" for="kana">
+          <span class="ja">フリガナ</span><span class="en">Furigana</span>
+          <span class="form-badge required-badge">必須</span>
+        </label>
+        <input class="form-input" type="text" id="kana" name="kana" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="email">
+          <span class="ja">メールアドレス</span><span class="en">Email</span>
+          <span class="form-badge required-badge ja">必須</span>
+          <span class="form-badge required-badge en">Required</span>
+        </label>
+        <input class="form-input" type="email" id="email" name="email" required autocomplete="email">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="category">
+          <span class="ja">お問い合わせ種別</span><span class="en">Category</span>
+          <span class="form-badge required-badge ja">必須</span>
+          <span class="form-badge required-badge en">Required</span>
+        </label>
+        <div class="select-wrap">
+          <select class="form-input form-select" id="category" name="category" required>
+            <option value="" disabled selected>選択してください</option>
+            <option value="制作のご相談">制作のご相談</option>
+            <option value="商品について">商品について</option>
+            <option value="採用について">採用について</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="message">
+          <span class="ja">お問い合わせ内容</span><span class="en">Message</span>
+          <span class="form-badge required-badge ja">必須</span>
+          <span class="form-badge required-badge en">Required</span>
+        </label>
+        <textarea class="form-input form-textarea" id="message" name="message" required placeholder="ご相談内容をご記入ください。&#10;例）&#10;・作りたい商品&#10;・数量&#10;・ご希望納期&#10;・用途"></textarea>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="company">
+          <span class="ja">会社名</span><span class="en">Company</span>
+          <span class="form-badge optional-badge ja">任意</span>
+          <span class="form-badge optional-badge en">Optional</span>
+        </label>
+        <input class="form-input" type="text" id="company" name="company" autocomplete="organization">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="tel">
+          <span class="ja">電話番号</span><span class="en">Phone</span>
+          <span class="form-badge optional-badge ja">任意</span>
+          <span class="form-badge optional-badge en">Optional</span>
+        </label>
+        <input class="form-input" type="tel" id="tel" name="tel" autocomplete="tel">
+      </div>
+
+      <div class="form-field form-privacy">
+        <label class="privacy-label">
+          <input type="checkbox" id="privacy" name="privacy" required>
+          <span class="ja"><a href="privacy.html?lang=ja">個人情報保護方針</a>に同意する</span>
+          <span class="en"><a href="privacy.html?lang=en">Privacy Policy</a> agreement</span>
+        </label>
+      </div>
+
+      <div class="form-submit">
+        <button class="button primary" type="submit">
+          <span class="ja">送信する</span>
+          <span class="en">Send</span>
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+
+
+<script src="script.js"></script>
+</body>
+</html>
