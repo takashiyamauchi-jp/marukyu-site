@@ -1,41 +1,36 @@
-# marukyu_site_mock_v2
+=== 丸久商店 筆順ローダー 組み込み手順 ===
 
-## 構成
-- index.html：トップ。画像5枚＋フルスクリーン紹介画像のみ
-- about.html：About
-- works.html：Works
-- order.html：Order / OEM相談ページ
-- contact.html：Contact
-- style.css：全体の見た目
-- script.js：トップの読み込みアニメーション
+【1. ファイルを配置】(リポジトリのルート基準)
+  js/marukyu-loader.js        ← 新規フォルダ js/ を作って入れる
+  images/loader/tm1.png〜tm8.png ← 新規フォルダ images/loader/ に8枚
+  script.js                    ← 既存を上書き(ローダー呼び出し統合済み・return バグ修正込み)
 
-## 画像差し替え
-`images` フォルダに下記の名前で画像を入れて、HTMLの placeholder を img タグに差し替える想定です。
+【2. index.html に1行追加】
+  </body> の直前、既存の <script src="script.js"></script> の【前】に:
 
-例：
-<div class="visual-card placeholder"><span>image_hero_01.jpg</span></div>
+    <script src="js/marukyu-loader.js"></script>
 
-を
+  ※ HTMLの構造変更は不要です(#loader の中身はそのままでOK。
+     静止画 loaderMark はJS側で自動的にSVGへ置き換わります)
 
-<div class="visual-card"><img src="images/image_hero_01.jpg" alt=""></div>
+【3. style.css に1ブロック追記】(どこでも可・末尾推奨)
 
-に変更。
+    #loaderMarkStage svg { width: 100%; height: 100%; display: block; }
 
-## 仮画像名
-- image_hero_01.jpg
-- image_hero_02.jpg
-- image_hero_03.jpg
-- image_hero_04.jpg
-- image_hero_05.jpg
-- image_intro.jpg
-- image_about.jpg
-- image_apparel.jpg
-- image_tenugui.jpg
-- image_yukata.jpg
-- image_textile.jpg
-- image_collaboration.jpg
-- image_exhibition.jpg
+【4. 動作確認】
+  - シークレットウィンドウでトップを開く(sessionStorageの影響回避)
+  - 紋が①〜⑦→○の筆順で染まり、屋号→年号→フェードアウトの順
+  - 2回目以降のトップ表示ではローダーがスキップされること
 
-## Order表記について
-OEMよりやわらかく、一般の問い合わせにも広げられます。
-BtoB感を強めるなら Production / Custom Order / OEM でも良いです。
+【調整したくなったら】
+  js/marukyu-loader.js 冒頭の DEFAULTS を編集:
+    color   : 染料の色 (例 '#234069' で藍)
+    speed   : 速度 (1.2 で2割速く)
+    bleed   : 滲みの強さ (ラボの同名スライダーと同じ)
+    overlap : 画の重なり (0.35 = 35%)
+
+【備考】
+  - 全体尺は約3.4秒(紋) + 2.5秒(屋号・年号〜フェード)
+  - prefers-reduced-motion の環境では即座に完成形を表示
+  - ラボで使っていたB+C(注ぎ)モードは本番版では未搭載。
+    欲しくなったら言ってください、追加できます。

@@ -13,12 +13,27 @@
 </head>
 <body class="is-loading home-page">
 
+<!-- SVG ink-bleed filters -->
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+  <defs>
+    <filter id="ink-bleed-heavy" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.022 0.028" numOctaves="4" seed="5" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+      <feGaussianBlur in="disp" stdDeviation="4" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+    <filter id="ink-bleed-light" x="-12%" y="-12%" width="124%" height="124%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.038" numOctaves="3" seed="9" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+      <feGaussianBlur in="disp" stdDeviation="1.4" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+  </defs>
+</svg>
+
 <div id="loader" class="loader" aria-label="Loading">
   <div class="loader-inner">
-    <div class="loader-mark-stage">
-      <svg class="loader-circle" viewBox="0 0 120 120" aria-hidden="true">
-        <circle id="loaderCircle" cx="60" cy="60" r="50"></circle>
-      </svg>
+    <div class="loader-mark-stage" id="loaderMarkStage">
       <img id="loaderMark" class="loader-mark" src="images/logo_mark.png" alt="">
     </div>
     <img id="loaderShinedozome" class="loader-brush loader-shinedozome" src="images/brush_shinedozome.png" alt="新江戸染">
@@ -86,7 +101,7 @@
   </section>
 </main>
 
-
+<script src="js/marukyu-loader.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

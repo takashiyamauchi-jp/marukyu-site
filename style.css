@@ -41,26 +41,45 @@ img { display: block; max-width: 100%; }
 .loader-inner { display: grid; justify-items: center; transform: translateY(-8px); }
 .loader-mark-stage {
   position: relative;
-  width: clamp(170px, 18vw, 250px);
-  height: clamp(170px, 18vw, 250px);
+  width: clamp(130px, 16vw, 210px);
+  height: clamp(130px, 16vw, 210px);
   margin-bottom: 28px;
 }
-.loader-circle {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  transform: rotate(-90deg);
-}
-.loader-circle circle {
-  fill: none; stroke: #111; stroke-width: 3.2;
-  stroke-linecap: round; stroke-dasharray: 314; stroke-dashoffset: 314;
-}
-.loader-circle.is-drawn circle { animation: drawCircle 1.05s ease forwards; }
-@keyframes drawCircle { to { stroke-dashoffset: 0; } }
+/* 染み込みステート管理 */
 .loader-mark {
-  position: absolute; inset: 13%; width: 74%; height: 74%;
-  object-fit: contain; opacity: 0; transform: scale(.94);
-  transition: opacity .65s ease, transform .65s ease;
+  display: block; width: 100%; height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(.9);
+  filter: url(#ink-bleed-heavy);
+  will-change: opacity, filter, transform;
 }
-.loader-mark.is-visible { opacity: 1; transform: scale(1); }
+/* フェーズ1: 重い滲みで浮かび上がる */
+.loader-mark.is-bleeding {
+  transition:
+    opacity   .72s cubic-bezier(.25,.0,.4,1),
+    transform .80s cubic-bezier(.25,.0,.35,1);
+  opacity: 1;
+  transform: scale(.97);
+}
+/* フェーズ2: 滲みが落ち着く */
+.loader-mark.is-settling {
+  filter: url(#ink-bleed-light);
+  transition: filter .4s ease;
+}
+/* フェーズ3: 定着 */
+.loader-mark.is-settled {
+  filter: none;
+  transform: scale(1);
+  transition: filter .3s ease, transform .3s ease;
+}
+/* reduced-motion: フィルターなしで即表示 */
+@media (prefers-reduced-motion: reduce) {
+  .loader-mark { filter: none !important; }
+  .loader-mark.is-bleeding {
+    transition: opacity .4s ease !important;
+  }
+}
 .loader-brush {
   display: block; width: auto; object-fit: contain;
   opacity: 0; transform: translateY(8px);
@@ -1241,3 +1260,4 @@ body.no-hero .footer { color: var(--text); }
 @media (max-width: 480px) {
   .works-gallery { columns: 1; }
 }
+#loaderMarkStage svg { width: 100%; height: 100%; display: block; }

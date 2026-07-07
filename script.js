@@ -19,32 +19,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   }
 
-  if (loader) {
-    if (sessionStorage.getItem('loaded')) {
-      loader.classList.add('is-hidden');
-      document.body.classList.remove('is-loading');
-      startSlider();
-      return;
-    }
+  if (loader && sessionStorage.getItem('loaded')) {
+    // 2回目以降：ローダーを即スキップ（以降の初期化は続行する）
+    loader.classList.add('is-hidden');
+    document.body.classList.remove('is-loading');
+    startSlider();
+  } else if (loader) {
     sessionStorage.setItem('loaded', '1');
 
-    const circle      = document.getElementById("loaderCircle")?.parentElement;
-    const mark        = document.getElementById("loaderMark");
     const shinedozome = document.getElementById("loaderShinedozome");
     const marukyu     = document.getElementById("loaderMarukyu");
     const year        = document.getElementById("loaderYear");
 
-    setTimeout(() => circle?.classList.add("is-drawn"),   250);
-    setTimeout(() => mark?.classList.add("is-visible"),  1150);
-    setTimeout(() => shinedozome?.classList.add("is-visible"), 1900);
-    setTimeout(() => marukyu?.classList.add("is-visible"),     2700);
-    setTimeout(() => year?.classList.add("is-visible"),        3500);
-    setTimeout(() => {
-      loader.classList.add("is-hidden");
-      document.body.classList.remove("is-loading");
-      window.scrollTo({ top: 0, behavior: "instant" });
-      startSlider();
-    }, 4650);
+    // 紋マーク：筆順で染まるアニメーション（marukyu-loader.js）
+    const stage = document.getElementById("loaderMarkStage");
+    document.getElementById("loaderMark")?.remove(); // 静止画はSVGに置き換え
+    MarukyuLoader.play(stage, { basePath: "images/loader/" }).then(() => {
+      // 紋の定着後に屋号・年号
+      shinedozome?.classList.add("is-visible");
+      setTimeout(() => marukyu?.classList.add("is-visible"), 750);
+      setTimeout(() => year?.classList.add("is-visible"),   1500);
+      setTimeout(() => {
+        loader.classList.add("is-hidden");
+        document.body.classList.remove("is-loading");
+        window.scrollTo({ top: 0, behavior: "instant" });
+        startSlider();
+      }, 2450);
+    });
   } else {
     startSlider();
   }
