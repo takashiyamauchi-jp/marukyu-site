@@ -1261,3 +1261,9 @@ body.no-hero .footer { color: var(--text); }
   .works-gallery { columns: 1; }
 }
 #loaderMarkStage svg { width: 100%; height: 100%; display: block; }
+/* ── Loader 調整: 屋号サイズ控えめ・余韻フェード ── */
+.loader { transition: opacity 1.8s ease, visibility 1.8s ease; }
+.loader-brush { transition: opacity 1.1s ease, transform 1.1s ease; }
+.loader-year  { transition: opacity 1.1s ease, transform 1.1s ease; }
+.loader-shinedozome { height: clamp(20px, 2.4vw, 34px); }
+.loader-marukyu     { height: clamp(23px, 2.8vw, 38px); }

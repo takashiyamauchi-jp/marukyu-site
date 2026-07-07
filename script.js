@@ -35,16 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const stage = document.getElementById("loaderMarkStage");
     document.getElementById("loaderMark")?.remove(); // 静止画はSVGに置き換え
     MarukyuLoader.play(stage, { basePath: "images/loader/" }).then(() => {
-      // 紋の定着後に屋号・年号
-      shinedozome?.classList.add("is-visible");
-      setTimeout(() => marukyu?.classList.add("is-visible"), 750);
-      setTimeout(() => year?.classList.add("is-visible"),   1500);
+      // 紋の定着 → ひと呼吸おいて屋号・年号(ゆとりのある展開)
+      setTimeout(() => shinedozome?.classList.add("is-visible"),  500);
+      setTimeout(() => marukyu?.classList.add("is-visible"),     1450);
+      setTimeout(() => year?.classList.add("is-visible"),        2400);
       setTimeout(() => {
-        loader.classList.add("is-hidden");
+        loader.classList.add("is-hidden");   // フェードはCSS側で1.8sの余韻
         document.body.classList.remove("is-loading");
         window.scrollTo({ top: 0, behavior: "instant" });
         startSlider();
-      }, 2450);
+      }, 3800);
     });
   } else {
     startSlider();

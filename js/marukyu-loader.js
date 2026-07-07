@@ -12,9 +12,9 @@ window.MarukyuLoader = (() => {
   const DEFAULTS = {
     basePath: 'images/loader/',   // tm1.png〜tm8.png の場所
     color:   '#1a1a1a',           // 染料の色
-    speed:   1.0,                 // 再生速度
-    bleed:   12,                  // 滲みの強さ
-    overlap: 0.35,                // 画の重なり(0〜0.7)
+    speed:   0.7,                 // 再生速度(ラボ確定値)
+    bleed:   8,                   // 滲みの強さ(ラボ確定値)
+    overlap: 0.15,                // 画の重なり(ラボ確定値)
     K:       22,                  // 筆先しきい値の柔らかさ
   };
   // 各画の持続時間(ms)。①〜⑦、○の順。
