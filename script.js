@@ -6,17 +6,24 @@ const HERO_POOL = [
 ];
 
 function setupHeroImages() {
-  const imgs = document.querySelectorAll(".hero-slide img");
+  const heroSlides = document.querySelectorAll(".hero-slide");
   const pool = [...HERO_POOL];
   for (let i = pool.length - 1; i > 0; i--) {          // シャッフル
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
-  imgs.forEach((img, i) => {
+  heroSlides.forEach((slide, i) => {
+    let img = slide.querySelector("img");
+    if (!img) {                                        // imgが無ければ作る
+      img = document.createElement("img");
+      img.alt = "";
+      slide.appendChild(img);
+    }
     if (pool[i]) img.src = "images/" + pool[i];
-    if (i > 0) img.loading = "lazy";                   // 2枚目以降は遅延読み込み
+    if (i > 0) img.loading = "lazy";
   });
 }
+
 setupHeroImages();
   /* ── Loader ── */
   const loader = document.getElementById("loader");
