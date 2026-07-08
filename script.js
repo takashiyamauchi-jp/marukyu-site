@@ -1,5 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
+// ── ヒーロー画像プール(ここに追加するだけで候補が増える) ──
+const HERO_POOL = [
+  "hero_01.jpg", "hero_02.jpg", "hero_03.jpg",
+  "hero_04.jpg", "hero_05.jpg",
+];
 
+function setupHeroImages() {
+  const imgs = document.querySelectorAll(".hero-slide img");
+  const pool = [...HERO_POOL];
+  for (let i = pool.length - 1; i > 0; i--) {          // シャッフル
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  imgs.forEach((img, i) => {
+    if (pool[i]) img.src = "images/" + pool[i];
+    if (i > 0) img.loading = "lazy";                   // 2枚目以降は遅延読み込み
+  });
+}
+setupHeroImages();
   /* ── Loader ── */
   const loader = document.getElementById("loader");
   const slides = Array.from(document.querySelectorAll(".hero-slide"));
