@@ -73,13 +73,15 @@
 
     <!--
       ── HERO MEDIA ──────────────────────────────────────────
-      現在は画像スライダー。動画に差し替える場合は以下をコメントアウトし、
-      下の <video> ブロックを有効にしてください。
+      現在は画像スライダー(script.js の HERO_DATA からJSで生成)。
+      動画に差し替える場合は下の .hero-slides ブロックを削除し、
+      <video> ブロックのコメントを解除してください。
 
       動画差し替え手順：
       1. video_top_hero.mp4（圧縮済み・1080p推奨）を images/ に配置
-      2. 下の hero-slide ブロックをコメントアウト
+      2. 下の .hero-slides ブロックを削除
       3. <video> ブロックのコメントを解除
+      4. script.js の Hero関連処理（HERO_DATA / setupHeroImages 等）は不要になるため削除可
 
       <div class="hero-media hero-media--video">
         <video class="hero-video" autoplay muted loop playsinline>
@@ -88,16 +90,16 @@
       </div>
       ────────────────────────────────────────────────────── -->
 
-    <!-- 画像スライダー（仮）→ 将来は上記 video に差し替え -->
-      <div class="hero-slide hero-media"></div>
-      <div class="hero-slide hero-media"></div>
-      <div class="hero-slide hero-media"></div>
-      <div class="hero-slide hero-media"></div>
-      <div class="hero-slide hero-media"></div>
+    <!-- Hero画像は script.js 内の HERO_DATA 配列から動的に生成されます -->
+    <div class="hero-slides" id="heroSlides"></div>
 
-    <div class="slide-dots" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
+    <div class="hero-nav">
+      <button type="button" class="hero-nav-btn hero-nav-prev" aria-label="前のスライド">‹</button>
+      <button type="button" class="hero-nav-btn hero-nav-next" aria-label="次のスライド">›</button>
     </div>
+
+    <!-- 注目リンクは script.js 内の featuredLinks 配列から動的に生成されます(0件の場合は要素ごと非表示) -->
+    <div class="hero-featured" id="heroFeatured" aria-label="Featured links"></div>
   </section>
 </main>
 
