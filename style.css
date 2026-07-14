@@ -1018,8 +1018,8 @@ body.no-hero .footer { color: var(--text); }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(150px, 14vw, 190px);
-  height: clamp(56px, 6vw, 72px);
+  width: clamp(225px, 21vw, 285px);
+  height: clamp(84px, 9vw, 108px);
 }
 .about-brand-logo a {
   display: flex;
@@ -1108,7 +1108,7 @@ body.no-hero .footer { color: var(--text); }
   .about-philosophy-section { padding: 60px 28px 40px; }
   .about-brand-section { padding: 60px 28px 90px; }
   .about-brand-logos { gap: 24px; margin-top: 48px; }
-  .about-brand-logo { width: 120px; height: 44px; }
+  .about-brand-logo { width: 180px; height: 66px; }
   .works-category-section { padding: 60px 28px; }
   .works-category-grid { grid-template-columns: 1fr 1fr; }
   .works-cat-large { grid-column: span 2; }
