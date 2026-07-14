@@ -937,6 +937,38 @@ body.no-hero .footer { color: var(--text); }
   line-height: 2;
   margin: 0 0 1.2em;
 }
+.about-timeline-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 60px;
+  border-top: 1px solid var(--line);
+}
+.about-timeline {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.about-timeline-item {
+  padding: 32px 40px 32px 0;
+  border-bottom: 1px solid var(--line);
+}
+.about-timeline-item:nth-child(even) { padding-left: 40px; border-left: 1px solid var(--line); }
+.about-timeline-item dt {
+  font-family: var(--font-en);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: .14em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.about-timeline-item dd {
+  margin: 0;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.8;
+  color: var(--text);
+}
 .about-info-section {
   max-width: 1200px;
   margin: 0 auto;
@@ -986,8 +1018,8 @@ body.no-hero .footer { color: var(--text); }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 110px;
-  height: 48px;
+  width: clamp(150px, 14vw, 190px);
+  height: clamp(56px, 6vw, 72px);
 }
 .about-brand-logo a {
   display: flex;
@@ -1069,11 +1101,14 @@ body.no-hero .footer { color: var(--text); }
   .page-hero-full .page-hero-text { padding: 0 28px 60px; }
   .about-lead-section { padding: 72px 28px; }
   .about-split { grid-template-columns: 1fr; gap: 40px; padding: 32px 28px 80px; }
+  .about-timeline-section { padding: 60px 28px; }
+  .about-timeline { grid-template-columns: 1fr; }
+  .about-timeline-item:nth-child(even) { padding-left: 0; border-left: none; }
   .about-info-section { padding: 60px 28px; }
   .about-philosophy-section { padding: 60px 28px 40px; }
   .about-brand-section { padding: 60px 28px 90px; }
   .about-brand-logos { gap: 24px; margin-top: 48px; }
-  .about-brand-logo { width: 84px; height: 36px; }
+  .about-brand-logo { width: 120px; height: 44px; }
   .works-category-section { padding: 60px 28px; }
   .works-category-grid { grid-template-columns: 1fr 1fr; }
   .works-cat-large { grid-column: span 2; }
