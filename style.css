@@ -649,7 +649,7 @@ body.no-hero .footer { color: var(--text); }
 .order-process-steps::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 39px; left: 0; right: 0;
   height: 1px;
   background: var(--line);
 }
@@ -784,6 +784,8 @@ body.no-hero .footer { color: var(--text); }
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
 }
+/* 5項目目（数量がまだ決まっていない）は全幅に広げ、4+1の孤立を防ぐ */
+.order-consultation-item:last-child { grid-column: 1 / -1; }
 .order-consultation-item {
   border: 1px solid var(--line);
   padding: 24px 22px;

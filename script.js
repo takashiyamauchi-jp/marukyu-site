@@ -209,11 +209,21 @@ renderFeaturedLinks();
     startSlider();
   }
 
-  /* ── Header scroll ── */
+  /* ── Header scroll ──
+     ヘッダーの白/黒切り替えは、Hero画像がヘッダーの裏から完全に
+     スクロールし終えるタイミングに合わせる（固定80pxだと、Heroの
+     途中で黒文字に切り替わり、暗い写真の上でナビが読めなくなるため）。
+  */
   const header = document.querySelector('.site-header');
   if (header && !document.body.classList.contains('no-hero')) {
+    const heroEl = document.querySelector('.hero-slider, .page-hero-full');
+    const getHeaderH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+    const getThreshold = () => heroEl ? Math.max(heroEl.offsetHeight - getHeaderH(), 0) : 80;
+    let threshold = getThreshold();
+    window.addEventListener('resize', () => { threshold = getThreshold(); }, { passive: true });
+
     const onScroll = () => {
-      if (window.scrollY > 80) {
+      if (window.scrollY > threshold) {
         document.body.classList.add('is-scrolled');
       } else {
         document.body.classList.remove('is-scrolled');
