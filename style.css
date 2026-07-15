@@ -566,51 +566,17 @@ body.no-hero .footer { color: var(--text); }
   .contact-section, .privacy-section { padding: 0 0 80px; }
 }
 
-/* ── Order page ── */
-.order-hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-end;
-}
-.order-hero-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.order-hero-img.placeholder {
-  background: #c8bfb0;
-}
-.order-hero-text {
-  position: relative;
-  z-index: 2;
-  padding: calc(var(--header-h) + 60px) 60px 80px;
-  color: #fff;
-  mix-blend-mode: normal;
-  max-width: 720px;
-}
-.order-hero-text .page-label { color: rgba(255,255,255,.7); margin-bottom: 24px; }
-.order-hero-text h1 {
-  font-size: clamp(22px, 3vw, 36px);
-  margin: 0 0 32px;
-  color: #fff;
-}
+/* ── Order page(全面リニューアル) ── */
+
+/* Hero lead(page-hero-full内、既存のまま) */
 .order-lead {
   font-size: clamp(13px, 1vw, 15px);
   line-height: 2;
   color: rgba(255,255,255,.85);
   margin: 0;
 }
-.order-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, rgba(0,0,0,.38) 0%, rgba(0,0,0,.18) 60%, transparent 100%);
-  pointer-events: none;
-}
 
-/* Section wrap */
+/* Section wrap（About等と揃えた余白） */
 .order-section-wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -620,67 +586,191 @@ body.no-hero .footer { color: var(--text); }
 .order-section-wrap:last-of-type { border-bottom: none; }
 
 .order-section-header {
-  margin-bottom: 60px;
+  margin-bottom: 56px;
+  max-width: 720px;
 }
-.order-h2 {
-  font-family: var(--font-en);
-  font-size: clamp(28px, 3.2vw, 42px);
-  font-weight: 300;
-  letter-spacing: .03em;
-  line-height: 1.2;
-  margin: 0 0 28px;
-}
+.order-section-header .page-label { margin-bottom: 16px; }
 .order-section-header p {
   color: var(--muted);
-  font-size: clamp(14px, 1.2vw, 17px);
+  font-size: clamp(14px, 1.1vw, 16px);
   line-height: 2;
   max-width: 640px;
   margin: 0;
 }
 
-/* What we make grid */
-.order-items-grid {
+/* 1. Products grid（つくれるもの：PC4列/タブレット3列/スマホ2列） */
+.order-products-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px 28px;
 }
-.order-item-img {
+@media (max-width: 1024px) {
+  .order-products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.order-product-img {
   aspect-ratio: 4 / 5;
-  margin-bottom: 16px;
-  overflow: hidden;
+  margin-bottom: 14px;
 }
-.order-item-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.order-item-label {
+.order-product-label {
   margin: 0;
+  font-size: 13px;
+  letter-spacing: .04em;
+  color: var(--text);
+}
+.order-product-label.en {
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.order-product-more {
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  color: var(--muted);
   font-family: var(--font-en);
   font-size: 15px;
   font-weight: 300;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-.order-item-sub {
-  margin: 4px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  letter-spacing: .08em;
-  font-family: var(--font-ui);
+  letter-spacing: .06em;
 }
 
-/* Consultation / Sewing split */
+/* 2. Process steps（制作フロー：thin lineで接続） */
+.order-process-steps {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.order-process-steps::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--line);
+}
+.order-process-step {
+  flex: 1 1 0;
+  padding: 28px 20px 0 0;
+}
+.order-process-step:last-child { padding-right: 0; }
+.order-process-num {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 12px;
+  letter-spacing: .14em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.order-process-label {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.order-process-label.en {
+  margin-top: 2px;
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* 3. MOQ & Lead Time（カード形式） */
+.order-moq-group + .order-moq-group { margin-top: 56px; }
+.order-moq-group-title {
+  margin: 0 0 20px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.order-moq-group-title.en { color: var(--text); opacity: .5; margin-top: -16px; }
+.order-moq-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+.order-info-card {
+  border: 1px solid var(--line);
+  padding: 26px 22px;
+}
+.order-info-card-label {
+  margin: 0 0 12px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+.order-info-card-label.en { text-transform: uppercase; letter-spacing: .1em; }
+.order-info-card-value {
+  margin: 0;
+  font-family: var(--font-en);
+  font-size: 19px;
+  font-weight: 300;
+  letter-spacing: .04em;
+  color: var(--text);
+}
+
+/* 4. Dyeing methods（注染・捺染・藍染を等価に扱う） */
+.order-dyeing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 56px;
+}
+.order-dyeing-img {
+  aspect-ratio: 4 / 5;
+  margin-bottom: 20px;
+}
+.order-dyeing-name-ja {
+  margin: 0;
+  font-size: 19px;
+  letter-spacing: .05em;
+}
+.order-dyeing-name-en {
+  margin: 2px 0 16px;
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.order-dyeing-desc {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 0 0 16px;
+}
+.order-dyeing-suited {
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--text);
+}
+
+/* 5. Fabrics（order-splitを再利用、写真幅を広げる） */
 .order-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
 }
+.order-split + .order-split { margin-top: 80px; }
 .order-split-rev { direction: rtl; }
 .order-split-rev > * { direction: ltr; }
+.order-split--wide-img { grid-template-columns: 3fr 2fr; }
 .order-split-img {
   aspect-ratio: 3 / 4;
   overflow: hidden;
 }
 .order-split-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.order-split-text h2 { margin-bottom: 24px; }
 .order-split-text p {
   color: var(--muted);
   font-size: clamp(14px, 1.2vw, 17px);
@@ -688,108 +778,72 @@ body.no-hero .footer { color: var(--text); }
   margin: 0;
 }
 
-/* Fabric grid */
-.order-fabric-grid {
+/* 6. Consultation（こんなご相談も承ります） */
+.order-consultation-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
 }
-.order-fabric-img { aspect-ratio: 3 / 4; }
-
-/* Process list */
-.order-process-list {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 24px;
+.order-consultation-item {
+  border: 1px solid var(--line);
+  padding: 24px 22px;
 }
-.order-process-img { aspect-ratio: 2 / 3; margin-bottom: 12px; }
-.order-process-caption {
+.order-consultation-item p {
   margin: 0;
-  font-family: var(--font-ui);
-  font-size: 11px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* Flow */
-.order-flow {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-}
-.order-flow-item {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  padding: 40px 0;
-  border-bottom: 1px solid var(--line);
-}
-.order-flow-item:nth-child(-n+3) { border-top: 1px solid var(--line); }
-.order-flow-item:nth-child(3n) { }
-.order-flow-num {
-  font-family: var(--font-en);
-  font-size: 11px;
-  letter-spacing: .14em;
-  color: var(--muted);
-  padding-top: 3px;
-  flex-shrink: 0;
-}
-.order-flow-title {
-  margin: 0 0 6px;
-  font-family: var(--font-en);
-  font-size: 16px;
-  font-weight: 300;
-  letter-spacing: .1em;
-}
-.order-flow-sub {
-  margin: 0;
-  font-size: 13px;
-  color: var(--muted);
+  font-size: 14px;
   line-height: 1.7;
-  font-family: var(--font-ja);
+}
+.order-consultation-item .en {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.order-consultation-cta {
+  margin-top: 48px;
+  text-align: center;
 }
 
-/* MOQ */
-.order-moq {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
+/* 7. FAQ（<details>ネイティブアコーディオン） */
+.order-faq-list {
   border-top: 1px solid var(--line);
-  margin: 0 0 32px;
 }
-.order-moq-item {
-  padding: 28px 0;
+.order-faq-item {
   border-bottom: 1px solid var(--line);
 }
-.order-moq-item:nth-child(odd) { padding-right: 40px; border-right: 1px solid var(--line); }
-.order-moq-item:nth-child(even) { padding-left: 40px; }
-.order-moq-item dt {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
+.order-faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 4px;
+  font-size: 15px;
+  letter-spacing: .02em;
 }
-.order-moq-item dd {
-  margin: 0;
+.order-faq-item summary::-webkit-details-marker { display: none; }
+.order-faq-item summary::after {
+  content: "+";
+  flex-shrink: 0;
   font-family: var(--font-en);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 300;
-  letter-spacing: .06em;
-}
-.order-moq-note {
   color: var(--muted);
-  font-size: 13px;
+  transition: transform .25s ease;
+}
+.order-faq-item[open] summary::after { transform: rotate(45deg); }
+.order-faq-item p {
+  margin: 0 0 28px;
+  padding-right: 40px;
+  color: var(--muted);
+  font-size: 14px;
   line-height: 1.9;
-  margin: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .order-faq-item summary::after { transition: none; }
 }
 
-/* CTA */
+/* CTA（既存のまま） */
 .order-cta {
   text-align: center;
   padding: 120px 60px 140px;
@@ -810,20 +864,26 @@ body.no-hero .footer { color: var(--text); }
 
 /* Mobile */
 @media (max-width: 800px) {
-  .order-hero-text { padding: calc(var(--header-h) + 40px) 28px 60px; }
   .order-section-wrap { padding: 72px 28px; }
-  .order-items-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
-  .order-split { grid-template-columns: 1fr; gap: 40px; }
+  .order-section-header { margin-bottom: 40px; }
+  .order-products-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 16px; }
+  .order-process-steps { flex-direction: column; }
+  .order-process-steps::before { top: 0; bottom: 0; left: 0; right: auto; width: 1px; height: auto; }
+  .order-process-step { padding: 0 0 32px 24px; }
+  .order-process-step:last-child { padding-bottom: 0; }
+  .order-moq-cards { grid-template-columns: 1fr 1fr; }
+  .order-dyeing-grid { grid-template-columns: 1fr; gap: 48px; margin-top: 40px; }
+  .order-split { grid-template-columns: 1fr; gap: 32px; }
+  .order-split + .order-split { margin-top: 48px; }
   .order-split-rev { direction: ltr; }
-  .order-fabric-grid { grid-template-columns: 1fr 1fr; }
-  .order-process-list { grid-template-columns: repeat(3, 1fr); }
-  .order-flow { grid-template-columns: 1fr; }
-  .order-flow-item:nth-child(-n+3) { border-top: none; }
-  .order-flow-item:first-child { border-top: 1px solid var(--line); }
-  .order-moq { grid-template-columns: 1fr; }
-  .order-moq-item:nth-child(odd) { padding-right: 0; border-right: none; }
-  .order-moq-item:nth-child(even) { padding-left: 0; }
+  .order-split--wide-img { grid-template-columns: 1fr; }
+  .order-consultation-list { grid-template-columns: 1fr 1fr; }
   .order-cta { padding: 80px 28px 100px; }
+}
+@media (max-width: 480px) {
+  .order-products-grid { grid-template-columns: repeat(2, 1fr); }
+  .order-moq-cards { grid-template-columns: 1fr; }
+  .order-consultation-list { grid-template-columns: 1fr; }
 }
 /* ── Scroll indicator ── */
 .scroll-indicator {
