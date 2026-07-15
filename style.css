@@ -1294,86 +1294,70 @@ body.no-hero .footer { color: var(--text); }
   object-fit: cover;
 }
 
-/* ── Works: Masonry風ギャラリー ── */
-.works-gallery-section {
+/* ── Works: アーカイブ(Masonry) ──
+   カード幅は全列で統一、高さのみ画像の縦横比に従う。
+   grid-auto-rows を小さな単位にし、各カードの grid-row-end を
+   script.js が実測して設定することで擬似Masonyを実現(掲載順を保持)。
+*/
+.works-archive-section {
   padding: 80px 60px 60px;
   max-width: 1320px;
   margin: 0 auto;
 }
-.works-gallery {
-  columns: 3;
+.works-archive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 20px;
+  grid-auto-rows: 1px;
+  /* dense にすると隙間を埋めるため項目の前後が入れ替わることがある。
+     掲載順(新しい順)を優先するため dense は使わない */
+  grid-auto-flow: row;
 }
-.works-item {
-  break-inside: avoid;
-  margin-bottom: 20px;
-  position: relative;
-  cursor: pointer;
-}
-/* 縦長アイテム */
-.works-item--tall .works-item-img { aspect-ratio: 3 / 4; }
-/* 横長アイテム */
-.works-item--wide .works-item-img { aspect-ratio: 4 / 3; }
-/* 通常 */
-.works-item .works-item-img { aspect-ratio: 1 / 1; }
+.works-archive-item { position: relative; }
 
-.works-item-img {
-  position: relative;
-  overflow: hidden;
-}
-.works-item-img img {
+.works-archive-img { position: relative; overflow: hidden; }
+.works-archive-img.is-lightbox { cursor: pointer; }
+.works-archive-img.is-lightbox:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.works-archive-img img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform .7s ease;
 }
-.works-item:hover .works-item-img img { transform: scale(1.04); }
 
-/* PC: hoverでoverlay表示 */
-.works-item-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10,10,10,.62);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 28px 24px;
+/* PC: hoverで薄暗く+クライアント名フェードイン(装飾なし、控えめに) */
+.works-archive-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 18px 20px;
   opacity: 0;
-  transition: opacity .35s ease;
+  background: linear-gradient(0deg, rgba(0,0,0,.38), transparent 55%);
+  pointer-events: none;
 }
-.works-item:hover .works-item-overlay { opacity: 1; }
+.works-archive-overlay .works-archive-client,
+.works-archive-overlay .works-archive-year { color: #fff; }
 
-.works-item-cat {
-  font-family: var(--font-ui);
-  font-size: 10px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.65);
-  margin: 0 0 8px;
-}
-.works-item-title {
-  font-family: var(--font-en);
-  font-size: clamp(14px, 1.2vw, 18px);
-  font-weight: 300;
-  letter-spacing: .06em;
-  color: #fff;
-  margin: 0 0 8px;
-  line-height: 1.4;
-}
-.works-item-client {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  letter-spacing: .1em;
-  color: rgba(255,255,255,.5);
+.works-archive-client {
   margin: 0;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+.works-archive-ext { font-size: .9em; }
+.works-archive-year {
+  margin: 2px 0 0;
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--muted);
 }
 
-/* SP: 常時小さく表示 */
-.works-item-sp-label {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  letter-spacing: .1em;
-  color: var(--muted);
-  margin: 8px 0 0;
-  display: none; /* PCでは非表示 */
+/* SP/タブレット: ホバーに依存せず画像下に常時表示 */
+.works-archive-meta-sp { margin-top: 10px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .works-archive-meta-sp { display: none; }
+  .works-archive-img img { transition: transform .25s ease, filter .25s ease; }
+  .works-archive-item:hover .works-archive-img img { transform: scale(1.025); filter: brightness(.94); }
+  .works-archive-overlay { transition: opacity .25s ease; }
+  .works-archive-item:hover .works-archive-overlay { opacity: 1; }
 }
 
 /* ── スクロールフェードイン ── */
@@ -1389,25 +1373,56 @@ body.no-hero .footer { color: var(--text); }
 /* アクセシビリティ：動きを減らす設定 */
 @media (prefers-reduced-motion: reduce) {
   .fade-in { transition: none; }
-  .works-item-img img { transition: none; }
-  .works-item-overlay { transition: none; }
+  .works-archive-img img { transition: none; }
+  .works-archive-overlay { transition: none; }
 }
 
 /* ── Mobile ── */
 @media (max-width: 800px) {
-  .works-gallery-section { padding: 60px 20px 40px; }
-  .works-gallery { columns: 2; column-gap: 12px; }
-  .works-item { margin-bottom: 12px; }
-  /* SP: overlayは出ないのでラベルを表示 */
-  .works-item-overlay { display: none; }
-  .works-item-sp-label { display: block; }
-  .works-item--tall .works-item-img,
-  .works-item--wide .works-item-img,
-  .works-item .works-item-img { aspect-ratio: 3 / 4; }
+  .works-archive-section { padding: 60px 20px 40px; }
+  .works-archive-grid { grid-template-columns: repeat(2, 1fr); column-gap: 12px; }
 }
 @media (max-width: 480px) {
-  .works-gallery { columns: 1; }
+  .works-archive-grid { grid-template-columns: 1fr; }
 }
+
+/* ── Works: ライトボックス(vanilla JS、外部ライブラリ不使用) ── */
+.works-lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  display: none;
+  align-items: center; justify-content: center;
+  background: rgba(10,10,10,.92);
+  padding: 40px;
+}
+.works-lightbox.is-open { display: flex; }
+.works-lightbox-inner {
+  max-width: 90vw; max-height: 85vh;
+  display: flex; flex-direction: column; align-items: center;
+}
+.works-lightbox-img {
+  max-width: 90vw; max-height: calc(85vh - 48px);
+  width: auto; height: auto;
+  object-fit: contain;
+  display: block;
+}
+.works-lightbox-caption {
+  margin: 16px 0 0;
+  color: rgba(255,255,255,.85);
+  font-family: var(--font-ui);
+  font-size: 12px; letter-spacing: .06em;
+  text-align: center;
+}
+.works-lightbox-close {
+  position: absolute; top: 24px; right: 28px;
+  background: none; border: none; color: #fff;
+  font-family: var(--font-en); font-size: 28px; line-height: 1;
+  font-weight: 300;
+  cursor: pointer; padding: 8px;
+}
+.works-lightbox-close:focus-visible {
+  outline: 2px solid #fff; outline-offset: 3px;
+}
+
 #loaderMarkStage svg { width: 100%; height: 100%; display: block; }
 /* ── Loader 調整: 屋号サイズ控えめ・余韻フェード ── */
 .loader { transition: opacity 1.8s ease, visibility 1.8s ease; }
@@ -1431,14 +1446,8 @@ body:not(.is-loading) main { animation: pageEnter .45s ease-out both; }
   transition: opacity .55s ease-out, transform .55s ease-out;
 }
 
-/* 3. 画像ホバー: 1.04倍→1.03倍・500ms・ホバーできる端末のみ */
-.works-item-img img { transition: transform .5s ease-out; }
-@media (hover: hover) and (pointer: fine) {
-  .works-item:hover .works-item-img img { transform: scale(1.03); }
-}
-@media (hover: none) {
-  .works-item:hover .works-item-img img { transform: none; }
-}
+/* 3. 画像ホバー: works-archiveは独自のトランジションを持つため対象外
+      (works.html アーカイブ改修に伴い、旧 .works-item 用ルールは削除) */
 
 /* 4. ナビリンク: 下線が左から右へ伸びる(250ms) */
 .nav a { position: relative; }

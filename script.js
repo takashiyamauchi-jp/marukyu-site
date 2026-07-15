@@ -255,4 +255,194 @@ setupHeroImages();
       updateForm();
     });
   }
+
+  /* ── Works: アーカイブギャラリー(works.htmlのみ。WORKS_DATAは works-data.js で定義) ──
+     カード幅は列で統一、高さは画像の実アスペクト比から算出した grid-row-end で
+     決める擬似Masonry。掲載順(配列順=新しい順)はそのまま保持し、並び替えしない。
+  */
+  (function setupWorksArchive() {
+    const grid = document.getElementById("worksArchiveGrid");
+    if (!grid || typeof WORKS_DATA === "undefined") return;
+
+    function renderClientName(item) {
+      if (item.externalUrl) {
+        const a = document.createElement("a");
+        a.href = item.externalUrl;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.className = "works-archive-client";
+        a.append(item.clientName + " ");
+        const ext = document.createElement("span");
+        ext.className = "works-archive-ext";
+        ext.setAttribute("aria-hidden", "true");
+        ext.textContent = "↗";
+        a.appendChild(ext);
+        const sr = document.createElement("span");
+        sr.className = "sr-only";
+        sr.textContent = "(新しいタブで開きます)";
+        a.appendChild(sr);
+        return a;
+      }
+      const span = document.createElement("p");
+      span.className = "works-archive-client";
+      span.textContent = item.clientName;
+      return span;
+    }
+
+    function renderYear(item) {
+      const p = document.createElement("p");
+      p.className = "works-archive-year";
+      p.textContent = item.year;
+      return p;
+    }
+
+    const lightboxItems = [];
+
+    WORKS_DATA.forEach((item) => {
+      const article = document.createElement("article");
+      article.className = "works-archive-item";
+
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "works-archive-img";
+      if (item.allowLightbox) imgWrap.classList.add("is-lightbox");
+
+      const img = document.createElement("img");
+      img.src = item.image;
+      img.alt = item.clientName ? `${item.clientName} ${item.year}` : "";
+      img.width = item.width;
+      img.height = item.height;
+      img.loading = "lazy";
+      imgWrap.appendChild(img);
+
+      const overlay = document.createElement("div");
+      overlay.className = "works-archive-overlay";
+      overlay.appendChild(renderClientName(item));
+      overlay.appendChild(renderYear(item));
+      imgWrap.appendChild(overlay);
+
+      if (item.allowLightbox) {
+        imgWrap.setAttribute("role", "button");
+        imgWrap.setAttribute("tabindex", "0");
+        imgWrap.setAttribute("aria-label", `${item.clientName} ${item.year} を拡大表示`);
+        imgWrap.addEventListener("click", () => openWorksLightbox(item));
+        imgWrap.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openWorksLightbox(item);
+          }
+        });
+      }
+
+      const metaSp = document.createElement("div");
+      metaSp.className = "works-archive-meta-sp";
+      metaSp.appendChild(renderClientName(item));
+      metaSp.appendChild(renderYear(item));
+
+      article.appendChild(imgWrap);
+      article.appendChild(metaSp);
+      article.dataset.ratio = String(item.height / item.width);
+      grid.appendChild(article);
+    });
+
+    // 疑似Masonry: 各カードの高さ(画像の実アスペクト比 × 実測列幅)から
+    // grid-row-end の span を算出。grid-auto-rows は 1px の細かい単位にしてあるので、
+    // grid の row-gap は使わず、span 計算に余白分(ITEM_GAP)を含める。
+    const ROW_UNIT = 1;
+    const ITEM_GAP = 20;
+
+    function layoutWorksArchive() {
+      const items = Array.from(grid.children);
+      if (!items.length) return;
+      const styles = getComputedStyle(grid);
+      const columnCount = styles.gridTemplateColumns.split(" ").length;
+      const colGap = parseFloat(styles.columnGap) || 0;
+      const gridWidth = grid.clientWidth;
+      const colWidth = (gridWidth - colGap * (columnCount - 1)) / columnCount;
+
+      items.forEach((el) => {
+        const ratio = parseFloat(el.dataset.ratio) || 1;
+        const displayHeight = colWidth * ratio;
+        const span = Math.ceil((displayHeight + ITEM_GAP) / ROW_UNIT);
+        el.style.gridRowEnd = `span ${span}`;
+      });
+    }
+
+    layoutWorksArchive();
+
+    let resizeTimer = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(layoutWorksArchive, 150);
+    }, { passive: true });
+
+    /* ── ライトボックス ── */
+    let lightboxEl = null;
+    let lastFocusedEl = null;
+
+    function buildLightbox() {
+      const el = document.createElement("div");
+      el.className = "works-lightbox";
+      el.id = "worksLightbox";
+      el.setAttribute("role", "dialog");
+      el.setAttribute("aria-modal", "true");
+      el.setAttribute("aria-label", "拡大表示");
+
+      const closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.className = "works-lightbox-close";
+      closeBtn.setAttribute("aria-label", "閉じる");
+      closeBtn.textContent = "×";
+      closeBtn.addEventListener("click", closeWorksLightbox);
+
+      const inner = document.createElement("div");
+      inner.className = "works-lightbox-inner";
+
+      const img = document.createElement("img");
+      img.className = "works-lightbox-img";
+      img.alt = "";
+
+      const caption = document.createElement("p");
+      caption.className = "works-lightbox-caption";
+
+      inner.appendChild(img);
+      inner.appendChild(caption);
+      el.appendChild(closeBtn);
+      el.appendChild(inner);
+
+      // 背景クリックで閉じる(画像・キャプション本体のクリックは除く)
+      el.addEventListener("click", (e) => {
+        if (e.target === el) closeWorksLightbox();
+      });
+
+      document.body.appendChild(el);
+      return el;
+    }
+
+    function openWorksLightbox(item) {
+      if (!lightboxEl) lightboxEl = buildLightbox();
+      const img = lightboxEl.querySelector(".works-lightbox-img");
+      const caption = lightboxEl.querySelector(".works-lightbox-caption");
+      img.src = item.image;
+      img.alt = item.clientName || "";
+      caption.textContent = `${item.clientName} — ${item.year}`;
+
+      lastFocusedEl = document.activeElement;
+      lightboxEl.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      lightboxEl.querySelector(".works-lightbox-close").focus();
+    }
+
+    function closeWorksLightbox() {
+      if (!lightboxEl || !lightboxEl.classList.contains("is-open")) return;
+      lightboxEl.classList.remove("is-open");
+      document.body.style.overflow = "";
+      if (lastFocusedEl) lastFocusedEl.focus();
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightboxEl && lightboxEl.classList.contains("is-open")) {
+        closeWorksLightbox();
+      }
+    });
+  })();
 });
