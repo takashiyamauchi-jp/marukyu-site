@@ -241,47 +241,33 @@ body.no-hero .brand-footer p { color: rgba(0,0,0,.35); }
   outline: 2px solid #fff; outline-offset: 3px;
 }
 
-/* ── Hero: Featured links(Index左下、見出しテキストのみの控えめなリンク。他ページには出ない) ── */
-.hero-featured {
+/* ── Hero: Topics(Index左下、丸久の「今」を静かに伝える置き場。他ページには出ない) ──
+   ニュース欄ではないため見出し・日付・バッジは付けない。件数が増えたら下端を
+   基準に上方向へ伸びる(position:absolute + bottom固定 + flex column)。
+*/
+.hero-topics {
   position: absolute; z-index: 3;
   left: 34px; bottom: 56px;
   max-width: min(360px, 60vw);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  gap: 6px;
+}
+.hero-topics a {
+  color: rgba(255,255,255,.8);
+  font-family: var(--font-ja);
+  font-size: 13px; letter-spacing: .03em; line-height: 2;
+  transition: color .25s ease;
+}
+.hero-topics a:hover,
+.hero-topics a:focus-visible {
   color: #fff;
 }
-.hero-featured-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.hero-featured-link {
-  position: relative;
-  display: inline-block; color: #fff;
-  font-family: var(--font-ja);
-  font-size: 13px; letter-spacing: .03em; line-height: 1.6;
-  opacity: .85;
-  text-decoration: none;
-  transition: opacity .2s ease;
-}
-/* 下線: .nav a::after と同じ、左から右へ伸びる方式(250ms) */
-.hero-featured-link::after {
-  content: ""; position: absolute; left: 0; bottom: -3px;
-  width: 100%; height: 1px; background: currentColor;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform .25s ease-out;
-}
-@media (hover: hover) and (pointer: fine) {
-  .hero-featured-link:hover::after { transform: scaleX(1); }
-}
-.hero-featured-link:focus-visible::after { transform: scaleX(1); }
-.hero-featured-link:hover,
-.hero-featured-link:focus-visible {
-  opacity: 1;
-}
-.hero-featured-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-featured-link::after { transition: none; }
+.hero-topics a:focus-visible {
+  outline: 2px solid #fff; outline-offset: 3px;
 }
 
 @media (max-width: 800px) {
-  .hero-featured { left: 20px; bottom: 90px; max-width: 78vw; }
-  .hero-featured-item:not(:first-child) { display: none; }
+  .hero-topics { left: 20px; bottom: 90px; max-width: 78vw; }
 }
 
 /* ── Screen-reader only ── */

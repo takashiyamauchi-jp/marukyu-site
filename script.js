@@ -64,63 +64,7 @@ function setupHeroImages() {
   return Array.from(container.querySelectorAll(".hero-slide"));
 }
 
-// ── Featured links(Hero左下、控えめな見出しリンクのみ) ──
-// TODO: 本番のリンクに差し替えてください（1〜3件を基本、最大5件、表示したい順）。
-// 下の1件は仮データです。type は現時点では表示に使わず、将来の管理用に保持するだけです。
-const featuredLinks = [
-  { title: "Paris Design Week 2026", url: "https://www.instagram.com/shinedozome/", type: "instagram", active: true },
-];
-
-// 相対パス/自サイトのドメイン → 同一タブ、それ以外の外部URL → 新規タブ+noopener noreferrer
-function isExternalUrl(url) {
-  try {
-    const resolved = new URL(url, window.location.href);
-    return resolved.origin !== window.location.origin;
-  } catch (e) {
-    return false;
-  }
-}
-
-function renderFeaturedLinks() {
-  const container = document.getElementById("heroFeatured");
-  if (!container) return;
-
-  const active = featuredLinks.filter(l => l.active);
-  if (!active.length) {
-    container.remove(); // 表示対象が0件なら領域自体を非表示にする
-    return;
-  }
-
-  const list = document.createElement("ul");
-  list.className = "hero-featured-list";
-
-  active.slice(0, 5).forEach(item => {
-    const li = document.createElement("li");
-    li.className = "hero-featured-item";
-
-    const a = document.createElement("a");
-    a.className = "hero-featured-link";
-    a.href = item.url;
-    a.textContent = item.title;
-
-    if (isExternalUrl(item.url)) {
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-      const srOnly = document.createElement("span");
-      srOnly.className = "sr-only";
-      srOnly.textContent = "(新しいタブで開きます)";
-      a.appendChild(srOnly);
-    }
-
-    li.appendChild(a);
-    list.appendChild(li);
-  });
-
-  container.appendChild(list);
-}
-
 setupHeroImages();
-renderFeaturedLinks();
 
   /* ── Loader ── */
   const loader = document.getElementById("loader");
