@@ -359,17 +359,16 @@ h2 {
 body.is-scrolled .footer,
 body.no-hero .footer { color: var(--text); }
 
-/* placeholder */
+/* placeholder（実画像差し替え前提の仮枠。他ページでも使い回し可） */
 .placeholder {
   display: grid; place-items: center;
-  background:
-    linear-gradient(135deg,rgba(0,0,0,.04) 25%,transparent 25%) -10px 0/20px 20px,
-    linear-gradient(225deg,rgba(0,0,0,.04) 25%,transparent 25%) -10px 0/20px 20px,
-    linear-gradient(315deg,rgba(0,0,0,.04) 25%,transparent 25%)  0   0/20px 20px,
-    linear-gradient(45deg, rgba(0,0,0,.04) 25%,transparent 25%)  0   0/20px 20px,
-    #ede8e0;
-  color: var(--muted); font-family: var(--font-ui);
-  font-size: 11px; letter-spacing: .1em;
+  background: #f4f1ea;
+}
+.placeholder::after {
+  content: "image";
+  color: #cec7b8;
+  font-family: var(--font-ui);
+  font-size: 11px; letter-spacing: .15em;
 }
 
 /* ── Mobile ── */
@@ -390,13 +389,21 @@ body.no-hero .footer { color: var(--text); }
 /* ── Contact Form ── */
 .contact-section {
   max-width: 720px;
-  margin: 80px auto 0;
+  margin: 140px auto 0;
   padding: 0 40px 120px;
+}
+/* section-label: Heroコピーに対して本文冒頭を機能的な案内文として一段格下げする際の小見出し。他ページでも使い回し可 */
+.section-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: .15em;
+  color: #999;
+  margin: 0 0 12px;
 }
 .contact-intro {
   font-size: clamp(15px, 1.25vw, 17px);
-  line-height: 2.2;
-  color: var(--muted);
+  line-height: 1.9;
+  color: #666;
   margin: 0 0 72px;
 }
 .contact-form { width: 100%; }
@@ -550,6 +557,7 @@ body.no-hero .footer { color: var(--text); }
 /* Mobile */
 @media (max-width: 800px) {
   .contact-section, .privacy-section { padding: 0 0 80px; }
+  .contact-section { margin-top: 88px; }
 }
 
 /* ── Order page(全面リニューアル) ── */
